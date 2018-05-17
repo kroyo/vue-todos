@@ -1,12 +1,26 @@
 <template>
     <div class="container">
-        <aside class="menu"></aside>
-        <article class="content-container"></article>
+        <div class="menu">
+            <menus></menus>
+        </div>
+        <div class="content-container">
+            <todo></todo>
+        </div>
     </div>
 </template>
+
 <script>
-    export default {};
+import menus from './menus';
+import todo  from './todo';
+
+export default {
+    components: {
+        menus,
+        todo
+    }
+};
 </script>
+
 <style lang="less">
 @import '../common/style/layouts.less';
 </style>
