@@ -19,7 +19,7 @@ export default {
             default: () => {
                 return {
                     checked: false,
-                    text: 'kroyo'
+                    text: '222'
                 }
             }
         }

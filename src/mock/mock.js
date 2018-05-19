@@ -74,6 +74,31 @@ export default {
                 }, 200);
             });
         });
+
+        // 新增一条代办事项
+        mock.onPost('/todo/addRecord').reply(config => {
+            let {
+                id,
+                text
+            } = JSON.parse(config.data);
+            // id 是传进来的值唯一待办项的id
+            // text 用户新增输入的数据
+            Todos.some((t, index) => {
+                if (t.id === id) {
+                    t.record.push({
+                        text: text,
+                        isDelete: false,
+                        checked: false
+                    });
+                    return true;
+                }
+            });
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve([200]);
+                }, 200);
+            });
+        });
     }
 }
 
