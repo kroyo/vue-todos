@@ -1,4 +1,4 @@
-# vue-todos
+# vue-todoyarn
 
 > A Vue.js project
 
