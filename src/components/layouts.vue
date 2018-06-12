@@ -4,7 +4,7 @@
       <menus></menus>
     </aside>
     <article class="content-container">
-      <todo></todo>
+      <router-view></router-view>
     </article>
   </div>
 </template>
