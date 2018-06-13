@@ -9,3 +9,13 @@ export const getTodoList = params => {  // 封装一个函数，名为getTodoLis
 export const addTodo = params => {
     return axios.post('/todo/addTodo',params).then(res => res.data);
 };
+
+export const getRecordList = params => {
+    return axios.get('/todo/recordList',{
+        params : params
+    });
+};
+
+export const addRecord = params => {
+    return axios.post('/todo/addRecord',params).then(res => res.data)
+};

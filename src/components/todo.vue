@@ -7,8 +7,8 @@
         </a>
       </div>
       <h1 class="title-page">
-        <span class="title-wrapper">{{ todo.titile }}</span>
-        <span class="count-list">{{ todo.count }}</span>
+        <span class="title-wrapper">{{ todo.title }}</span>
+        <span class="count-list" v-if="todo.count > 0">{{ todo.count }}</span>
       </h1>
       <div class="nav-group right">
         <div class="options-web">
@@ -34,6 +34,7 @@
   </div>
 </template>
 <script>
+  import { getRecordList , addRecord } from '../api/api';
   import item from './todo-item';
   export default { 
     components: {
@@ -42,26 +43,49 @@
     data() {
       return {
         todo: {
-          title: '星期一',
-          count: 12,
+          title: '',
+          count: 0,
           locked: false
         },
-        items: [
-          { checked: false, text: '新的一天', isDelete: false },
-          { checked: false, text: '新的一天', isDelete: false },
-          { checked: false, text: '新的一天', isDelete: false }
-        ],
+        items: [],
         text: ''
       }
     },
+    // created() 与 watch 冲突
+    created() {
+      // this.init();
+    },
+    watch: {
+      '$route.params.id'() {
+        // 监听$route.params.id的变化，如果这个id即代表用户点击了其他的待办项需要重新请求数据。
+        this.init();
+      }
+    },
     methods: {
-      onAdd() {
-        this.items.push({
-          checked: false,
-          text: this.text,
-          isDelete: false
+      init() {
+        // 获取到 $route下params下的id,即我们在menus.vue组件处传入的数据。
+        const thisid = this.$route.params.id;
+        getRecordList({ 'id' : thisid }).then(res => {
+          // console.log(thisid,res.data);
+          let { id , title , count , isDelete , locked , record } = res.data.todo;
+          // 请求成功，拿到res.data.todo;在将record 赋值到代办单项列表，其它数据赋值到todo对象
+          this.items = record;
+          this.todo = {
+            id : id,
+            title : title,
+            count : count ,
+            locked : locked,
+            isDelete : isDelete
+          };
         });
-        this.text = ''; // 初始化输入框的值。
+      },
+      onAdd() {
+        const thisId = this.$route.params.id;
+        addRecord({ id : thisId , text : this.text }).then(res => {
+          //请求成功后初始化
+          this.text = '';
+          this.init();
+        });
       }
     }
   };

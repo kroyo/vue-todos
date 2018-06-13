@@ -22,7 +22,6 @@ export default {
   },
   created() {
     getTodoList({}).then(res => {
-      console.log(res.data.todos);
       const Todos = res.data.todos;
       this.items = Todos;
       this.todoId = Todos[0].id;
@@ -35,7 +34,7 @@ export default {
   },
   methods: {
     goList(id) {
-      this.todoId = id;
+      this.todoId = id; 
     },
     addTodoList() {
       // 调用新增菜单的接口，在接口调用成功在请求数据
