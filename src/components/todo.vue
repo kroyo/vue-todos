@@ -53,7 +53,7 @@
     },
     // created() 与 watch 冲突
     created() {
-      // this.init();
+      this.init();
     },
     watch: {
       '$route.params.id'() {
@@ -64,9 +64,9 @@
     methods: {
       init() {
         // 获取到 $route下params下的id,即我们在menus.vue组件处传入的数据。
-        const thisid = this.$route.params.id;
+        let thisid = this.$route.params.id;
+        // console.log(thisid);
         getRecordList({ 'id' : thisid }).then(res => {
-          // console.log(thisid,res.data);
           let { id , title , count , isDelete , locked , record } = res.data.todo;
           // 请求成功，拿到res.data.todo;在将record 赋值到代办单项列表，其它数据赋值到todo对象
           this.items = record;

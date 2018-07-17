@@ -4,11 +4,13 @@ import Mock from 'mockjs';
 
 import { Todos } from './data/todoList';  //导入Todos数据
 
+
 export default {
     start() {
         let mock = new MockAdapter(axios);   //创建 MockAdapter 实例
         // 1.获取todo列表
         mock.onGet('/todo/list').reply(config => {
+            console.log(Todos);
             let mockTodo = Todos.map(todo => { // 重组Todos数组
                 return {
                     id: todo.id,
