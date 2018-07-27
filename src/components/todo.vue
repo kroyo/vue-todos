@@ -1,7 +1,7 @@
 <template>
   <div class="page lists-show">
     <nav>
-      <div class="nav-group">
+      <div class="nav-group" @click="$store.dispatch('updateMenu')">
         <a class="nav-item">
           <span class="icon-list-unordered"></span>
         </a>

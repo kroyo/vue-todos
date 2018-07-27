@@ -1,8 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{ 'menu-open' : menuOpen }">
     <aside class="menu">
       <menus></menus>
     </aside>
+    <div class="content-overlay" @click="$store.dispatch('updateMenu')"></div>
     <article class="content-container">
       <router-view></router-view>
     </article>
@@ -15,6 +16,11 @@
     components: {
       menus,
       todo
+    },
+    computed: {
+      menuOpen() {
+        return this.$store.state.menuOpen;
+      }
     }
   };
 </script>
